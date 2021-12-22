@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bmy_if.proto\x12\x05my_if\"&\n\x16GrpcViewerHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\'\n\x14GrpcViewerHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"d\n\x17GrpcViewerActionRequest\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\"e\n\x18GrpcViewerActionResponse\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\x32\xa5\x01\n\nGrpcViewer\x12H\n\x08SayHello\x12\x1d.my_if.GrpcViewerHelloRequest\x1a\x1b.my_if.GrpcViewerHelloReply\"\x00\x12M\n\x08\x44oAction\x12\x1e.my_if.GrpcViewerActionRequest\x1a\x1f.my_if.GrpcViewerActionResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0bmy_if.proto\x12\x05my_if\"&\n\x16GrpcViewerHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\'\n\x14GrpcViewerHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"p\n\x17GrpcViewerActionRequest\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\n\n\x02\x63h\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\"q\n\x18GrpcViewerActionResponse\x12\x0e\n\x06\x61\x63tion\x18\x01 \x01(\t\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\n\n\x02\x63h\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x32\xa5\x01\n\nGrpcViewer\x12H\n\x08SayHello\x12\x1d.my_if.GrpcViewerHelloRequest\x1a\x1b.my_if.GrpcViewerHelloReply\"\x00\x12M\n\x08\x44oAction\x12\x1e.my_if.GrpcViewerActionRequest\x1a\x1f.my_if.GrpcViewerActionResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -119,15 +119,22 @@ _GRPCVIEWERACTIONREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='type', full_name='my_if.GrpcViewerActionRequest.type', index=3,
+      name='ch', full_name='my_if.GrpcViewerActionRequest.ch', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='my_if.GrpcViewerActionRequest.data', index=4,
-      number=5, type=12, cpp_type=9, label=1,
+      name='type', full_name='my_if.GrpcViewerActionRequest.type', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='my_if.GrpcViewerActionRequest.data', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -145,7 +152,7 @@ _GRPCVIEWERACTIONREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=103,
-  serialized_end=203,
+  serialized_end=215,
 )
 
 
@@ -179,15 +186,22 @@ _GRPCVIEWERACTIONRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='type', full_name='my_if.GrpcViewerActionResponse.type', index=3,
+      name='ch', full_name='my_if.GrpcViewerActionResponse.ch', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='my_if.GrpcViewerActionResponse.data', index=4,
-      number=5, type=12, cpp_type=9, label=1,
+      name='type', full_name='my_if.GrpcViewerActionResponse.type', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='my_if.GrpcViewerActionResponse.data', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -204,8 +218,8 @@ _GRPCVIEWERACTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=205,
-  serialized_end=306,
+  serialized_start=217,
+  serialized_end=330,
 )
 
 DESCRIPTOR.message_types_by_name['GrpcViewerHelloRequest'] = _GRPCVIEWERHELLOREQUEST
@@ -251,8 +265,8 @@ _GRPCVIEWER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=309,
-  serialized_end=474,
+  serialized_start=333,
+  serialized_end=498,
   methods=[
   _descriptor.MethodDescriptor(
     name='SayHello',

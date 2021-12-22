@@ -14,29 +14,45 @@ class GrpcViewerServer(my_if_pb2_grpc.GrpcViewerServicer):
     def SayHello(self, request, context):
         return my_if_pb2.GrpcViewerHelloReply(message='Hello, %s!' % request.name)
     
-    def DoAction(self, request, context):
-
-        action = request.action
-        w = request.width
-        h = request.height
-        t = request.type
-        data = request.data
-
-        print("request message = ", action)
-
-        img = np.frombuffer(data, dtype="uint8")
-        img = np.reshape(img, (h, w, 3))
-        cv2.imwrite("test.png",img)
-        img2 = img.copy()
-        data2 = img2.tobytes()
+    def make_resp(self, img, action, w, h, ch, t):
+        data = img.tobytes()
 
         resp = my_if_pb2.GrpcViewerActionResponse()
         resp.action = action
         resp.width = w
         resp.height = h
+        resp.ch = ch
         resp.type = t
-        resp.data = data2
+        resp.data = data
         return resp
+
+    def do_check(self, img, action, w, h, ch, t):
+        img2 = img.copy()
+        
+        img2 = img - 100
+        return img2
+
+    def DoAction(self, request, context):
+
+        action = request.action
+        w = request.width
+        h = request.height
+        ch = request.ch
+        t = request.type
+        data = request.data
+
+        print("request message = ", action)
+
+        img = np.frombuffer(data, dtype="uint8") ##TODO:
+        img = np.reshape(img, (h, w, ch))
+        cv2.imwrite("request.png",img)
+        
+
+        img_resp = self.do_check(img, action, w, h, ch, t)
+        print(img_resp.shape)
+        cv2.imwrite("response.png",img_resp)
+        return self.make_resp(img_resp, action, w, h, ch, t)
+
 
 
 def serve():

@@ -21,14 +21,16 @@ message GrpcViewerActionRequest {
     string action = 1;
     int32 width = 2;
     int32 height = 3;
-    int32 type = 4;
-    bytes data = 5;
+    int32 ch = 4;
+    int32 type = 5;
+    bytes data = 6;
 }
 message GrpcViewerActionResponse {
     string action = 1;
     int32 width = 2;
     int32 height = 3;
-    int32 type = 4;
-    bytes data = 5; 
+    int32 ch = 4;
+    int32 type = 5;
+    bytes data = 6;
 }
 
