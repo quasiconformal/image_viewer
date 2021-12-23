@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QImage, QPixmap, QPalette, QPainter
 from PyQt6.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt6.QtWidgets import QLabel, QSizePolicy, QScrollArea, QMessageBox, \
-    QMainWindow, QMenu, QFileDialog
+    QMainWindow, QMenu, QFileDialog, QWidget, QHBoxLayout
 from PyQt6.QtGui import QIcon, QAction
 
 # from https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0
@@ -17,6 +17,8 @@ class QImageViewer(QMainWindow):
         self.printer = QPrinter()
         self.scaleFactor = 0.0
 
+        
+
         self.imageLabel = QLabel()
         self.imageLabel.setBackgroundRole(QPalette.ColorRole.Base)
         self.imageLabel.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
@@ -27,13 +29,32 @@ class QImageViewer(QMainWindow):
         self.scrollArea.setWidget(self.imageLabel)
         self.scrollArea.setVisible(False)
 
-        self.setCentralWidget(self.scrollArea)
+        self.imageLabel2 = QLabel()
+        self.imageLabel2.setBackgroundRole(QPalette.ColorRole.Base)
+        self.imageLabel2.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        self.imageLabel2.setScaledContents(True)
+
+        self.scrollArea2 = QScrollArea()
+        self.scrollArea2.setBackgroundRole(QPalette.ColorRole.Dark)
+        self.scrollArea2.setWidget(self.imageLabel2)
+        self.scrollArea2.setVisible(False)
+
+        layout = QHBoxLayout()
+        layout.addWidget(self.scrollArea)
+        layout.addWidget(self.scrollArea2)
+
+        
+        #self.setCentralWidget(self.scrollArea)
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
         self.createActions()
         self.createMenus()
 
         self.setWindowTitle("Image Viewer")
         self.resize(800, 600)
+        self.show()
 
     def open(self):
         #options = QFileDialog.options()
@@ -48,15 +69,18 @@ class QImageViewer(QMainWindow):
                 return
 
             self.imageLabel.setPixmap(QPixmap.fromImage(image))
+            self.imageLabel2.setPixmap(QPixmap.fromImage(image))
             self.scaleFactor = 1.0
 
             self.scrollArea.setVisible(True)
+            self.scrollArea2.setVisible(True)
             self.printAct.setEnabled(True)
             self.fitToWindowAct.setEnabled(True)
             self.updateActions()
 
             if not self.fitToWindowAct.isChecked():
                 self.imageLabel.adjustSize()
+                self.imageLabel2.adjustSize()
 
     def print_(self):
         dialog = QPrintDialog(self.printer, self)
@@ -77,11 +101,13 @@ class QImageViewer(QMainWindow):
 
     def normalSize(self):
         self.imageLabel.adjustSize()
+        self.imageLabel2.adjustSize()
         self.scaleFactor = 1.0
 
     def fitToWindow(self):
         fitToWindow = self.fitToWindowAct.isChecked()
         self.scrollArea.setWidgetResizable(fitToWindow)
+        self.scrollArea2.setWidgetResizable(fitToWindow)
         if not fitToWindow:
             self.normalSize()
 
@@ -145,9 +171,12 @@ class QImageViewer(QMainWindow):
     def scaleImage(self, factor):
         self.scaleFactor *= factor
         self.imageLabel.resize(self.scaleFactor * self.imageLabel.pixmap().size())
+        self.imageLabel2.resize(self.scaleFactor * self.imageLabel2.pixmap().size())
 
         self.adjustScrollBar(self.scrollArea.horizontalScrollBar(), factor)
         self.adjustScrollBar(self.scrollArea.verticalScrollBar(), factor)
+        self.adjustScrollBar(self.scrollArea2.horizontalScrollBar(), factor)
+        self.adjustScrollBar(self.scrollArea2.verticalScrollBar(), factor)
 
         self.zoomInAct.setEnabled(self.scaleFactor < 3.0)
         self.zoomOutAct.setEnabled(self.scaleFactor > 0.333)
