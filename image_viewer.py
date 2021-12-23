@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import QLabel, QSizePolicy, QScrollArea, QMessageBox, \
 from PyQt6.QtGui import QIcon, QAction
 
 # from https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0
+# reference https://qiita.com/phyblas/items/d56003904c83938823f2
 class QImageViewer(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -35,10 +36,11 @@ class QImageViewer(QMainWindow):
         self.resize(800, 600)
 
     def open(self):
-        options = QFileDialog.Options()
+        #options = QFileDialog.options()
         # fileName = QFileDialog.getOpenFileName(self, "Open File", QDir.currentPath())
         fileName, _ = QFileDialog.getOpenFileName(self, 'QFileDialog.getOpenFileName()', '',
-                                                  'Images (*.png *.jpeg *.jpg *.bmp *.gif)', options=options)
+                                                  'Images (*.png *.jpeg *.jpg *.bmp *.gif)')
+        #                                          options=options)
         if fileName:
             image = QImage(fileName)
             if image.isNull():
@@ -58,7 +60,7 @@ class QImageViewer(QMainWindow):
 
     def print_(self):
         dialog = QPrintDialog(self.printer, self)
-        if dialog.exec_():
+        if dialog.exec():
             painter = QPainter(self.printer)
             rect = painter.viewport()
             size = self.imageLabel.pixmap().size()
