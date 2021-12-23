@@ -34,6 +34,10 @@ def run():
         req = my_if_pb2.GrpcViewerActionRequest(action = action, 
             width = w, height = h, ch = ch, type = type, data = data)
         resp = stub.DoAction(req)
+        w = resp.width
+        h = resp.height
+        ch = resp.ch
+        type = resp.type
         data = resp.data
         img = np.frombuffer(data, dtype="uint8")
         img = np.reshape(img, (h, w, ch))
